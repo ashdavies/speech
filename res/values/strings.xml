@@ -1,0 +1,8 @@
+<resources>
+
+    <string name="application">Speech</string>
+
+	<string name="glass_start_listening_trigger">Start Listening</string>
+	<string name="glass_start_listening_prompt">Start Listening</string>
+	
+</resources>
