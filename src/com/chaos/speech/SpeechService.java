@@ -1,18 +1,21 @@
 package com.chaos.speech;
 
 import java.util.Date;
+import java.util.List;
 
 import com.google.android.glass.timeline.LiveCard;
 import com.google.android.glass.timeline.LiveCard.PublishMode;
 
 import android.app.Service;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
+import android.speech.RecognitionListener;
 import android.speech.SpeechRecognizer;
 import android.widget.RemoteViews;
 
-public class SpeechService extends Service {
+public class SpeechService extends Service implements RecognitionListener {
 
 	// Speech recogniser
 	SpeechRecognizer recogniser;
@@ -78,6 +81,7 @@ public class SpeechService extends Service {
         
         // Instantiate speech recogniser
         recogniser = SpeechRecognizer.createSpeechRecognizer( this );
+        recogniser.setRecognitionListener( this );
         
         return START_STICKY;
         
@@ -101,5 +105,26 @@ public class SpeechService extends Service {
      * @param intent
      */
     @Override public IBinder onBind( Intent intent ) { return null; }
+
+	@Override public void onBeginningOfSpeech( ) { speech = "..."; }
+	@Override public void onBufferReceived( byte[] buffer ) { }
+	@Override public void onEndOfSpeech( ) { }
+	@Override public void onError( int error ) { recogniser.cancel( ); }
+	@Override public void onEvent( int eventType, Bundle params ) { }
+	@Override public void onPartialResults( Bundle partialResults ) { }
+	@Override public void onReadyForSpeech( Bundle params ) { }
+	
+	@Override public void onResults( Bundle results ) {
+		
+		// Reset speech string
+		speech = "";
+		
+		// Fetch results
+		List<String> recognitionResults = results.getStringArrayList( SpeechRecognizer.RESULTS_RECOGNITION );
+		for( String item : recognitionResults ) speech += item + " ";
+		
+	}
+	
+	@Override public void onRmsChanged( float rmsdB ) { }
     
 }
