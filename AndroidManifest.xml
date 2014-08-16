@@ -7,16 +7,27 @@
         android:minSdkVersion="19"
         android:targetSdkVersion="21" />
     
+    <uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.RECORD_AUDIO" />
-    
 	<uses-permission android:name="com.google.android.glass.permission.DEVELOPMENT" />
 
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/application" >
-        
-        <activity android:name="com.chaos.speech.SpeachActivity">
+
+        <activity
+            android:name="com.chaos.speech.MenuActivity"
+            android:label="@string/application"
+            android:enabled="true" >
+        </activity>
+
+        <service
+            android:name=".SpeechService"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/application"
+            android:enabled="true"
+            android:exported="true">
             
             <intent-filter>
                 <action android:name="com.google.android.glass.action.VOICE_TRIGGER" />
@@ -26,7 +37,7 @@
                 android:name="com.google.android.glass.VoiceTrigger"
                 android:resource="@xml/voice_trigger_start_listening" />
             
-        </activity>
+        </service>
         
     </application>
 

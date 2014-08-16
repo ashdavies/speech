@@ -2,7 +2,10 @@
 
     <string name="application">Speech</string>
 
-	<string name="glass_start_listening_trigger">Start Listening</string>
-	<string name="glass_start_listening_prompt">Start Listening</string>
+    <string name="action_start">Start</string>
+    <string name="action_stop">Stop</string>
+    
+	<string name="glass_start_listening_trigger">Start Speech</string>
+	<string name="glass_start_listening_prompt">speech</string>
 	
 </resources>
